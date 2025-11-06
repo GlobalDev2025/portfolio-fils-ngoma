@@ -9,9 +9,9 @@ services:
       python manage.py migrate
     startCommand: gunicorn portfolio.wsgi:application
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
       - key: DEBUG
         value: false
-      - key: SECRET_KEY
-        generateValue: true
       - key: ALLOWED_HOSTS
         value: .onrender.com
