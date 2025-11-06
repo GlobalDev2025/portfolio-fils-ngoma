@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Portfolio - Fils Ngoma{% endblock %}
+
+{% block content %}
+<!-- Hero Portfolio -->
+<section class="hero" style="min-height: 60vh; padding: 120px 0 80px;">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12" data-aos="fade-up">
+                <h1 class="hero-title mb-4">Mon Portfolio</h1>
+                <p class="hero-subtitle">Découvrez mes réalisations et projets récents</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filtres et Projets -->
+<section class="section bg-light">
+    <div class="container">
+        <!-- Filtres -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="text-center" data-aos="fade-up">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <a href="{% url 'projets' %}" 
+                           class="btn {% if not categorie_selectionnee %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                            Tous les projets
+                        </a>
+                        {% for categorie in categories %}
+                        <a href="{% url 'projets' %}?categorie={{ categorie.0 }}" 
+                           class="btn {% if categorie_selectionnee == categorie.0 %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                            {{ categorie.1 }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grille des projets -->
+        <div class="row">
+            {% for projet in projets %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="project-card h-100">
+                    <div class="position-relative overflow-hidden">
+                        {% if projet.image %}
+                        <img src="{{ projet.image.url }}" class="project-image w-100" alt="{{ projet.titre }}">
+                        {% else %}
+                        <img src="{% static 'images/projet-defaut.jpg' %}" class="project-image w-100" alt="{{ projet.titre }}">
+                        {% endif %}
+                        <div class="position-absolute top-0 end-0 m-3">
+                            <span class="project-category">{{ projet.get_categorie_display }}</span>
+                        </div>
+                    </div>
+                    <div class="project-content d-flex flex-column h-100">
+                        <h5 class="mb-3">{{ projet.titre }}</h5>
+                        <p class="text-muted mb-3 flex-grow-1">{{ projet.description|truncatewords:25 }}</p>
+                        
+                        <div class="mb-3">
+                            {% for tech in projet.technologies.split %}
+                            <span class="badge bg-light text-dark me-1 mb-1">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="mt-auto">
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <a href="{% url 'detail_projet' projet.pk %}" class="btn btn-outline-primary w-100 btn-sm">
+                                        <i class="fas fa-eye me-1"></i>Détails
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    {% if projet.url_projet %}
+                                    <a href="{{ projet.url_projet }}" target="_blank" class="btn btn-primary-custom w-100 btn-sm">
+                                        <i class="fas fa-external-link-alt me-1"></i>Voir
+                                    </a>
+                                    {% else %}
+                                    <button class="btn btn-outline-secondary w-100 btn-sm" disabled>
+                                        <i class="fas fa-lock me-1"></i>Privé
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center" data-aos="fade-up">
+                <div class="card-custom">
+                    <i class="fas fa-folder-open competence-icon" style="font-size: 4rem;"></i>
+                    <h4 class="text-muted">Aucun projet trouvé</h4>
+                    <p class="text-muted">
+                        {% if categorie_selectionnee %}
+                        Aucun projet dans la catégorie "{{ categorie_selectionnee }}" pour le moment.
+                        {% else %}
+                        Aucun projet n'a été ajouté pour le moment.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Statistiques -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card-custom" data-aos="fade-up">
+                    <div class="row text-center">
+                        <div class="col-md-3 mb-4 mb-md-0">
+                            <h3 class="text-primary mb-2">{{ projets|length }}</h3>
+                            <p class="text-muted mb-0 fw-semibold">Projets Réalisés</p>
+                        </div>
+                        <div class="col-md-3 mb-4 mb-md-0">
+                            <h3 class="text-primary mb-2">
+                                {% with web=projets|dictsort:"categorie"|join:""|length %}
+                                    {{ web }}
+                                {% endwith %}
+                            </h3>
+                            <p class="text-muted mb-0 fw-semibold">Applications Web</p>
+                        </div>
+                        <div class="col-md-3 mb-4 mb-md-0">
+                            <h3 class="text-primary mb-2">
+                                {% with design=projets|dictsort:"categorie"|join:""|length %}
+                                    {{ design }}
+                                {% endwith %}
+                            </h3>
+                            <p class="text-muted mb-0 fw-semibold">Designs Créés</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3 class="text-primary mb-2">100%</h3>
+                            <p class="text-muted mb-0 fw-semibold">Satisfaction Client</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section" style="background: linear-gradient(135deg, var(--primary), var(--primary-light));">
+    <div class="container">
+        <div class="row text-center text-white">
+            <div class="col-12" data-aos="fade-up">
+                <h2 class="mb-4">Vous avez un projet en tête ?</h2>
+                <p class="lead mb-4">Travaillons ensemble pour donner vie à vos idées</p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    {% if cv_actif %}
+                    <a href="{% url 'telecharger_cv' %}" class="cv-download-btn">
+                        <i class="fas fa-download me-2"></i>Télécharger mon CV
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'accueil' %}#contact" class="btn-outline-light-custom">
+                        <i class="fas fa-paper-plane me-2"></i>Commencer un projet
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

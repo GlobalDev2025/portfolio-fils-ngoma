@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ projet.titre }} - Fils Ngoma{% endblock %}
+
+{% block content %}
+<!-- Hero du projet -->
+<section class="hero" style="min-height: 50vh; padding: 120px 0 80px;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8" data-aos="fade-right">
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'accueil' %}" class="text-white-50">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'projets' %}" class="text-white-50">Portfolio</a></li>
+                        <li class="breadcrumb-item active text-white">{{ projet.titre }}</li>
+                    </ol>
+                </nav>
+                
+                <span class="hero-badge">{{ projet.get_categorie_display }}</span>
+                <h1 class="hero-title">{{ projet.titre }}</h1>
+                <p class="hero-subtitle">{{ projet.description }}</p>
+                
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    {% if projet.url_projet %}
+                    <a href="{{ projet.url_projet }}" target="_blank" class="btn-primary-custom">
+                        <i class="fas fa-external-link-alt me-2"></i>Voir le projet
+                    </a>
+                    {% endif %}
+                    {% if projet.url_github %}
+                    <a href="{{ projet.url_github }}" target="_blank" class="btn-outline-light-custom">
+                        <i class="fab fa-github me-2"></i>Code source
+                    </a>
+                    {% endif %}
+                    {% if cv_actif %}
+                    <a href="{% url 'telecharger_cv' %}" class="cv-download-btn">
+                        <i class="fas fa-download me-2"></i>Mon CV
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Détails du projet -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <!-- Image principale -->
+            <div class="col-lg-8 mb-5" data-aos="fade-right">
+                <div class="card-custom p-0 overflow-hidden">
+                    {% if projet.image %}
+                    <img src="{{ projet.image.url }}" class="img-fluid w-100" alt="{{ projet.titre }}" style="max-height: 500px; object-fit: cover;">
+                    {% else %}
+                    <img src="{% static 'images/projet-defaut.jpg' %}" class="img-fluid w-100" alt="{{ projet.titre }}" style="max-height: 500px; object-fit: cover;">
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Informations du projet -->
+            <div class="col-lg-4" data-aos="fade-left">
+                <div class="card-custom sticky-top" style="top: 100px;">
+                    <div class="text-center mb-4">
+                        <h4 class="card-title mb-0">Détails du projet</h4>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6 class="text-muted mb-3">CATÉGORIE</h6>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-folder competence-icon me-3" style="font-size: 1.2rem;"></i>
+                            <span class="fw-bold">{{ projet.get_categorie_display }}</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="text-muted mb-3">DATE DE RÉALISATION</h6>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-calendar competence-icon me-3" style="font-size: 1.2rem;"></i>
+                            <span class="fw-bold">{{ projet.date_realisation|date:"F Y" }}</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="text-muted mb-3">TECHNOLOGIES UTILISÉES</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for tech in projet.technologies.split %}
+                            <span class="badge bg-primary">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% if projet.url_projet or projet.url_github %}
+                    <div class="mb-4">
+                        <h6 class="text-muted mb-3">LIENS DU PROJET</h6>
+                        <div class="d-grid gap-2">
+                            {% if projet.url_projet %}
+                            <a href="{{ projet.url_projet }}" target="_blank" class="btn btn-primary-custom">
+                                <i class="fas fa-external-link-alt me-2"></i>Visiter le site
+                            </a>
+                            {% endif %}
+                            {% if projet.url_github %}
+                            <a href="{{ projet.url_github }}" target="_blank" class="btn btn-dark">
+                                <i class="fab fa-github me-2"></i>Voir sur GitHub
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'accueil' %}#contact" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-paper-plane me-2"></i>Projet similaire ?
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description détaillée -->
+        <div class="row mt-5">
+            <div class="col-12" data-aos="fade-up">
+                <div class="card-custom">
+                    <h3 class="mb-4">À propos de ce projet</h3>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class="lead mb-4">{{ projet.description }}</p>
+                            
+                            <h5 class="mt-4 mb-3">Objectifs et Défis</h5>
+                            <p>Ce projet a été développé pour répondre à des besoins spécifiques tout en surmontant des défis techniques intéressants. L'approche méthodique et l'utilisation des meilleures pratiques ont permis de créer une solution robuste et évolutive.</p>
+
+                            <h5 class="mt-4 mb-3">Fonctionnalités Principales</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <i class="fas fa-check-circle text-success mt-1 me-3"></i>
+                                        <div>
+                                            <strong>Interface utilisateur responsive</strong>
+                                            <p class="text-muted mb-0">Design adaptatif qui s'ajuste parfaitement à tous les appareils</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <i class="fas fa-check-circle text-success mt-1 me-3"></i>
+                                        <div>
+                                            <strong>Performance optimisée</strong>
+                                            <p class="text-muted mb-0">Chargement rapide et expérience utilisateur fluide</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <i class="fas fa-check-circle text-success mt-1 me-3"></i>
+                                        <div>
+                                            <strong>Code maintenable</strong>
+                                            <p class="text-muted mb-0">Architecture propre et documentation complète</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <i class="fas fa-check-circle text-success mt-1 me-3"></i>
+                                        <div>
+                                            <strong>Expérience utilisateur intuitive</strong>
+                                            <p class="text-muted mb-0">Navigation simple et interface conviviale</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-custom bg-light">
+                                <h6 class="card-title mb-4">Points Clés</h6>
+                                
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fw-semibold">Performance</span>
+                                        <span class="text-primary fw-bold">90%</span>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fw-semibold">Responsive</span>
+                                        <span class="text-primary fw-bold">95%</span>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fw-semibold">Qualité du code</span>
+                                        <span class="text-primary fw-bold">85%</span>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fw-semibold">UI/UX Design</span>
+                                        <span class="text-primary fw-bold">88%</span>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar" style="width: 88%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Galerie supplémentaire (optionnelle) -->
+        <div class="row mt-4">
+            <div class="col-12" data-aos="fade-up">
+                <div class="card-custom">
+                    <h4 class="mb-4">Galerie du projet</h4>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="project-card">
+                                {% if projet.image %}
+                                <img src="{{ projet.image.url }}" class="project-image w-100" alt="Vue principale">
+                                {% else %}
+                                <img src="{% static 'images/projet-defaut.jpg' %}" class="project-image w-100" alt="Vue principale">
+                                {% endif %}
+                                <div class="project-content">
+                                    <p class="text-center text-muted mb-0">Vue principale</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="project-card">
+                                <img src="{% static 'images/mobile-view.jpg' %}" class="project-image w-100" alt="Vue mobile" style="background: linear-gradient(135deg, #667eea, #764ba2); height: 200px;">
+                                <div class="project-content">
+                                    <p class="text-center text-muted mb-0">Vue mobile</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="project-card">
+                                <img src="{% static 'images/features.jpg' %}" class="project-image w-100" alt="Fonctionnalités" style="background: linear-gradient(135deg, #f093fb, #f5576c); height: 200px;">
+                                <div class="project-content">
+                                    <p class="text-center text-muted mb-0">Fonctionnalités</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Navigation entre projets -->
+<section class="section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <a href="{% url 'projets' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Retour au portfolio
+                    </a>
+                    
+                    <div class="d-flex gap-2">
+                        {% if cv_actif %}
+                        <a href="{% url 'telecharger_cv' %}" class="cv-download-btn">
+                            <i class="fas fa-download me-2"></i>Télécharger mon CV
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'accueil' %}#contact" class="btn-primary-custom">
+                            <i class="fas fa-paper-plane me-2"></i>Discuter d'un projet
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projets similaires -->
+<section class="section">
+    <div class="container">
+        <h3 class="section-title mb-5">Autres projets qui pourraient vous intéresser</h3>
+        <div class="row">
+            {% for other_project in projets|slice:":3" %}
+            {% if other_project.pk != projet.pk %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="project-card h-100">
+                    <div class="position-relative overflow-hidden">
+                        {% if other_project.image %}
+                        <img src="{{ other_project.image.url }}" class="project-image w-100" alt="{{ other_project.titre }}">
+                        {% else %}
+                        <img src="{% static 'images/projet-defaut.jpg' %}" class="project-image w-100" alt="{{ other_project.titre }}">
+                        {% endif %}
+                        <div class="position-absolute top-0 end-0 m-3">
+                            <span class="project-category">{{ other_project.get_categorie_display }}</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h5 class="mb-3">{{ other_project.titre }}</h5>
+                        <p class="text-muted mb-3">{{ other_project.description|truncatewords:15 }}</p>
+                        <a href="{% url 'detail_projet' other_project.pk %}" class="btn btn-outline-primary btn-sm w-100">
+                            Voir les détails
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Animation des progress bars
+    document.addEventListener('DOMContentLoaded', function() {
+        const progressBars = document.querySelectorAll('.progress-bar');
+        progressBars.forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0';
+            setTimeout(() => {
+                bar.style.width = width;
+            }, 500);
+        });
+    });
+
+    // Smooth scroll pour les ancres
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

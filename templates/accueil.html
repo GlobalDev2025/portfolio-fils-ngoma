@@ -1,0 +1,299 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="accueil" class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 hero-content" data-aos="fade-right">
+                <span class="hero-badge">
+                    <i class="fas fa-rocket me-2"></i>Développeur Full Stack & Designer
+                </span>
+                <h1 class="hero-title">Fils Ngoma</h1>
+                <h2 class="hero-subtitle">Je transforme vos idées en expériences digitales exceptionnelles</h2>
+                <p class="lead mb-4">Passionné par l'innovation et le design, je crée des solutions web qui allient performance technique et esthétique raffinée.</p>
+                
+                <div class="d-flex flex-wrap gap-3">
+                    {% if cv_actif %}
+                    <a href="{% url 'telecharger_cv' %}" class="cv-download-btn">
+                        <i class="fas fa-download me-2"></i>Télécharger mon CV
+                    </a>
+                    {% endif %}
+                    <a href="#contact" class="btn-outline-light-custom">
+                        <i class="fas fa-paper-plane me-2"></i>Discutons de votre projet
+                    </a>
+                </div>
+
+                <!-- Stats rapides -->
+                <div class="row mt-5 pt-3">
+                    <div class="col-4 text-center">
+                        <h3 class="text-white mb-1">10+</h3>
+                        <small class="text-white-50">Projets Livrés</small>
+                    </div>
+                    <div class="col-4 text-center">
+                        <h3 class="text-white mb-1">3+</h3>
+                        <small class="text-white-50">Ans d'Expérience</small>
+                    </div>
+                    <div class="col-4 text-center">
+                        <h3 class="text-white mb-1">100%</h3>
+                        <small class="text-white-50">Satisfaction Client</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-delay="200">
+                <div class="profile-container">
+                    <div class="profile-glow"></div>
+                    <img src="{% static 'images/Fils1.png' %}" alt="Fils Ngoma" class="profile-img floating">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- À Propos Section -->
+<section id="apropos" class="section bg-light">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">À Propos de Moi</h2>
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="card-custom">
+                    <h3 class="h4 mb-4">Mon Parcours Professionnel</h3>
+                    <p class="mb-4">Licencié en Génie Logiciel, je me spécialise dans le développement d'applications web modernes et la création d'interfaces utilisateur intuitives. Mon approche combine expertise technique et sensibilité design.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="competence-icon me-3" style="font-size: 1.5rem;">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div>
+                                    <strong class="d-block">Licence en Informatique</strong>
+                                    <small class="text-muted">ESFORCA/INPP - Génie Logiciel</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="competence-icon me-3" style="font-size: 1.5rem;">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <div>
+                                    <strong class="d-block">UI/UX Design</strong>
+                                    <small class="text-muted">Orange Digital Center</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                <h3 class="h4 mb-4">Informations Personnelles</h3>
+                <div class="row">
+                    <div class="col-sm-6 mb-4">
+                        <div class="card-custom text-center h-100">
+                            <i class="fas fa-user competence-icon" style="font-size: 2rem;"></i>
+                            <h6 class="fw-bold mb-2">Nom Complet</h6>
+                            <p class="text-muted mb-0">Fils Ngoma</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-4">
+                        <div class="card-custom text-center h-100">
+                            <i class="fas fa-envelope competence-icon" style="font-size: 2rem;"></i>
+                            <h6 class="fw-bold mb-2">Email</h6>
+                            <p class="text-muted mb-0">filsngoma475@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-4">
+                        <div class="card-custom text-center h-100">
+                            <i class="fas fa-phone competence-icon" style="font-size: 2rem;"></i>
+                            <h6 class="fw-bold mb-2">Téléphone</h6>
+                            <p class="text-muted mb-0">+243 831 050 484</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-4">
+                        <div class="card-custom text-center h-100">
+                            <i class="fas fa-map-marker-alt competence-icon" style="font-size: 2rem;"></i>
+                            <h6 class="fw-bold mb-2">Localisation</h6>
+                            <p class="text-muted mb-0">Kinshasa, RDC</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Compétences Section -->
+<section id="competences" class="section">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Mes Domaines d'Expertise</h2>
+        <div class="row">
+            {% for competence in competences %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="competence-card">
+                    <div class="competence-icon">
+                        <i class="{{ competence.icone }}"></i>
+                    </div>
+                    <h4 class="mb-3">{{ competence.nom }}</h4>
+                    <p class="text-muted mb-3">{{ competence.categorie }}</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{ competence.pourcentage }}%"></div>
+                    </div>
+                    <span class="fw-bold text-dark fs-5">{{ competence.pourcentage }}%</span>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center" data-aos="fade-up">
+                <div class="card-custom">
+                    <i class="fas fa-code competence-icon" style="font-size: 4rem;"></i>
+                    <h4 class="text-muted">Compétences en cours d'ajout</h4>
+                    <p class="text-muted">Mes compétences seront bientôt disponibles.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Projets Récents Section -->
+<section class="section bg-light">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Mes Réalisations Récentes</h2>
+        <div class="row">
+            {% for projet in projets %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="project-card">
+                    <div class="position-relative overflow-hidden">
+                        {% if projet.image %}
+                        <img src="{{ projet.image.url }}" class="project-image" alt="{{ projet.titre }}">
+                        {% else %}
+                        <img src="{% static 'images/projet-defaut.jpg' %}" class="project-image" alt="{{ projet.titre }}">
+                        {% endif %}
+                        <div class="position-absolute top-0 end-0 m-3">
+                            <span class="project-category">{{ projet.get_categorie_display }}</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h5 class="mb-3">{{ projet.titre }}</h5>
+                        <p class="text-muted mb-3">{{ projet.description|truncatewords:20 }}</p>
+                        
+                        <div class="mb-3">
+                            {% for tech in projet.technologies.split %}
+                            <span class="badge bg-light text-dark me-1 mb-1">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'detail_projet' projet.pk %}" class="btn btn-outline-primary btn-sm flex-fill">
+                                <i class="fas fa-eye me-1"></i>Détails
+                            </a>
+                            {% if projet.url_projet %}
+                            <a href="{{ projet.url_projet }}" target="_blank" class="btn btn-primary-custom btn-sm flex-fill">
+                                <i class="fas fa-external-link-alt me-1"></i>Voir
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center" data-aos="fade-up">
+                <div class="card-custom">
+                    <i class="fas fa-folder-open competence-icon" style="font-size: 4rem;"></i>
+                    <h4 class="text-muted">Projets en préparation</h4>
+                    <p class="text-muted">Mes projets seront bientôt disponibles.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if projets %}
+        <div class="text-center mt-5" data-aos="fade-up">
+            <a href="{% url 'projets' %}" class="btn-primary-custom">
+                <i class="fas fa-eye me-2"></i>Découvrir tous mes projets
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="section">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Travaillons Ensemble</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="contact-form" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-center mb-4">Discutons de votre projet</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label fw-semibold">Nom complet *</label>
+                                {{ formulaire.nom }}
+                                {% if formulaire.nom.errors %}
+                                <div class="text-danger small mt-1">{{ formulaire.nom.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label fw-semibold">Adresse email *</label>
+                                {{ formulaire.email }}
+                                {% if formulaire.email.errors %}
+                                <div class="text-danger small mt-1">{{ formulaire.email.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Sujet *</label>
+                            {{ formulaire.sujet }}
+                            {% if formulaire.sujet.errors %}
+                            <div class="text-danger small mt-1">{{ formulaire.sujet.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Message *</label>
+                            {{ formulaire.message }}
+                            {% if formulaire.message.errors %}
+                            <div class="text-danger small mt-1">{{ formulaire.message.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn-primary-custom btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Envoyer le message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--primary), var(--primary-light));">
+    <div class="container">
+        <div class="row text-center text-white">
+            <div class="col-12" data-aos="fade-up">
+                <h2 class="mb-4">Prêt à donner vie à votre projet ?</h2>
+                <p class="lead mb-4">Contactez-moi dès aujourd'hui pour discuter de vos besoins</p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    {% if cv_actif %}
+                    <a href="{% url 'telecharger_cv' %}" class="cv-download-btn">
+                        <i class="fas fa-download me-2"></i>Télécharger mon CV
+                    </a>
+                    {% endif %}
+                    <a href="#contact" class="btn-outline-light-custom">
+                        <i class="fas fa-paper-plane me-2"></i>Commencer un projet
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
